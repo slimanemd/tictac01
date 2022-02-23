@@ -62,21 +62,13 @@ body:{
 
 
 //
-class Square extends React.Component {
+function Square(props) {
     //
-    constructor(props){
-        super(props)
-        this.state = { value: this.props.value }
-    }   
-
-    //
-    render() {
-      return (
+    return (
         <button className="square" onClick={() => this.props.onClick() }>
-          {this.state.value}
+          {props.value}
         </button>
-      );
-    }
+    )
 }
 
 //
