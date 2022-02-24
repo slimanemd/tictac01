@@ -3,11 +3,11 @@
 // 5: Add time travel
 // 6: Showing the Past Moves
 
-
-
+//=======================================================================================
 //imports
 import React from "react";
 
+//=======================================================================================
 //Style
 const MyApp_Style = {
 
@@ -68,7 +68,7 @@ const MyApp_Style = {
     }
 }
 
-
+//=======================================================================================
 // logic
 // calculateWinner
 function calculateWinner(squares) {
@@ -91,43 +91,25 @@ function calculateWinner(squares) {
     return null;
   }
 
-
-
-
+//===================================================================================
 //Square
-function Square(props) {
-    //
-    return (
-        <button className="square" onClick={props.onClick}>
-          {props.value}
-        </button>
-    )
-}
+const Square = props => 
+    <button className="square" onClick={props.onClick}>{props.value} </button>
 
-//
-class Board extends React.Component {
-    //
-    renderSquare(i) {
-        return <Square value={ this.props.squares[i] }    onClick={ () => this.props.onClick(i) } />;
-    }
 
-    //
-    render() {
-        return (
-        <div>
-            { [0,1,2].map( rw => 
-                <div key={rw} className="board-row">
-                    { [0,1,2].map( 
-                        cl => 
-                        <Square key={rw * 3 + cl} value={ this.props.squares[rw * 3 + cl] }    onClick={ () => this.props.onClick(rw * 3 + cl) } />
-                        //this.renderSquare(rw * 3 + cl)
-                        )}
-                </div>    
-            ) }
-        </div>
-        );
-    }
-}
+//Board
+const Board = props =>
+    <div>
+        { [0,1,2].map( rw => 
+            <div key={rw} className="board-row">
+                { [0,1,2].map( 
+                    cl => 
+                    <Square key={rw * 3 + cl} value={ props.squares[rw * 3 + cl] }    onClick={ () => props.onClick(rw * 3 + cl) } />
+                    )}
+            </div>    
+        ) }
+    </div>
+
 
 //Game
 class Game extends React.Component {
@@ -135,11 +117,8 @@ class Game extends React.Component {
     // Lifting State Up, Again
     constructor(props) {
         super(props);
-        this.state = {
-            //Storing a History of Moves
-            history: [{
-                squares: Array(9).fill(null),
-            }],
+        this.state = {            //Storing a History of Moves
+            history: [{  squares: Array(9).fill(null),  }],
             stepNumber: 0,
             xIsNext: true,
         };
@@ -150,14 +129,11 @@ class Game extends React.Component {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);   //const history = this.state.history;
         const current = history[history.length - 1];  //history[this.state.stepNumber]; //
         const squares = current.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
-          return;
-        }
+        if (calculateWinner(squares) || squares[i]) return;
+    
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
-          history: history.concat([{
-            squares: squares,
-          }]),
+          history: history.concat([{ squares: squares, }]),
           stepNumber: history.length,
           xIsNext: !this.state.xIsNext,
         });
@@ -197,7 +173,7 @@ class Game extends React.Component {
         return (
         <div className="game">
             <div className="game-board">
-            <Board squares={current.squares}  onClick={(i) => this.handleClick(i) } />
+                <Board squares={current.squares}  onClick={(i) => this.handleClick(i) } />
             </div>
             <div className="game-info">
                 <div>{status}</div>
@@ -208,10 +184,10 @@ class Game extends React.Component {
     }
 }
 
-// ========================================
-  
-//
+//=======================================================================================
+//Global / App Style
 export const GbApp ={ ...MyApp_Style, }
 
-//
+//My App
 export const MyApp = () =><Game />
+//=======================================================================================
