@@ -3,8 +3,8 @@ import { SheetsRegistry } from 'react-jss';
 import jss from 'jss';
 import preset from 'jss-preset-default';
 
-//
-import { MyApp, GbApp } from './tictac';
+//App
+import { MyApp, GbApp } from './components/tictachisto';
 
 
 //==========================================================
@@ -21,11 +21,5 @@ const setupJss = () => {
 const sheets = setupJss();
 
 //============================================================
-//
-function App() {
-  return (
-    <MyApp />
-  );
-}
-
-export default App;
+////const App = () => <MyApp />
+export default MyApp;
